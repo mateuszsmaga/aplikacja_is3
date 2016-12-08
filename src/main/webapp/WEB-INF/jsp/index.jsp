@@ -12,12 +12,17 @@
 			  
 			  <div class="col-md-12 text-md-center">
 			  	<hr/>
-			    <h2>Pobieranie danych z bazy</h2>
+			    <h2>Aplikacja IS</h2>
 			    <hr/>
 			  </div>
 			  
 			  <div class="col-md-12 text-md-center">
 				  <a href="app" class="btn btn-outline-success" role="button">Pobierz dane</a>
+				  <hr/>
+			  </div>
+			  
+			  <div class="col-md-12 text-md-center">
+				  <a href="styles" class="btn btn-outline-success" role="button">Pobierz style</a>
 				  <hr/>
 			  </div>
 			  

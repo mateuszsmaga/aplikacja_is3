@@ -10,6 +10,7 @@ import com.google.gson.Gson;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.StaxDriver;
 
+import beans.Colours;
 import beans.Logs;
 import beans.Result;
 
@@ -28,7 +29,25 @@ public class ResultPrinter {
 	public static String returnXML(List<Result> results){
 		XStream xstream = new XStream(new StaxDriver());
 		xstream.alias("result", Result.class);
+		xstream.aliasField("numberofuserreviews", Result.class, "number_of_user_reviews");
+		xstream.aliasField("platformpc", Result.class, "platform_pc");
+		xstream.aliasField("platformxbox", Result.class, "platform_xbox");
+		xstream.aliasField("platformplaystation", Result.class, "platform_playstation");
+		xstream.aliasField("platformarcade", Result.class, "platform_arcade");
+		xstream.aliasField("releasequarter", Result.class, "expected_release_quarter");
+		xstream.aliasField("releaseyear", Result.class, "expected_release_year");
+		xstream.aliasField("siteurl", Result.class, "site_detail_url");
+		xstream.aliasField("apiurl", Result.class, "api_detail_url");
+		xstream.aliasField("lastupdate", Result.class, "date_last_updated");
+		xstream.aliasField("dateadded", Result.class, "date_added");
+		xstream.aliasField("originaldate", Result.class, "original_release_date");
 		String xml = xstream.toXML(results);
+		xml = xml.replace("<?xml version=\"1.0\" ?><list>","<?xml version=\"1.0\" ?><?xml-stylesheet type=\"text/css\" href=\"styl.css\"?><list><result><id>ID</id><name>NAME</name>"
+				+ "<aliases>ALIASES</aliases><numberofuserreviews>NR OF USER REVIEWS</numberofuserreviews><deck>DECK</deck>"
+				+ "<originaldate>RELEASE</originaldate><siteurl>SITE URL</siteurl><dateadded>ADDED</dateadded><lastupdate>UPDATE</lastupdate>"
+				+ "<apiurl>API URL</apiurl><releasequarter>QUARTER</releasequarter><releaseyear>YEAR</releaseyear>"
+				+ "<platformpc>PC</platformpc><platformplaystation>PS</platformplaystation><platformarcade>ARC</platformarcade>"
+				+ "<platformxbox>XBOX</platformxbox></result>");
 		return xml;
 	}
 	
@@ -38,6 +57,7 @@ public class ResultPrinter {
 	    Yaml yaml = new Yaml(options);
 	    return yaml.dumpAll(results.iterator());
 	}
+	
 	public static String returnOGDL(List<Result> results){
 		String data = "";
 		data+="list\n";
@@ -97,38 +117,34 @@ public class ResultPrinter {
 		
 		return data;
 	}
-	
-	public static String byGameName(List<Result> results){
-		XStream xstream = new XStream(new StaxDriver());
-		xstream.alias("result", Result.class);
-		xstream.omitField(Result.class, "number_of_user_reviews");
-		xstream.omitField(Result.class, "expected_release_quarter");
-		xstream.omitField(Result.class, "expected_release_year");
-		xstream.omitField(Result.class, "date_last_updated");
-		xstream.omitField(Result.class, "api_detail_url");
-		String xml = xstream.toXML(results);
-		return xml;
-	}
-	
 
-	
-
-	
 	public static String returnError(){
 		return "<error>"
 				+"<msg>Mozesz pobierac jedynie 1 plik co 15 sekund. Odczekaj przed probraniem nastepnego wyniku</msg>"
 				+"</error>";
 	}
-	public static String byGameNameWithReviews(List<Result> results){
-		XStream xstream = new XStream(new StaxDriver());
-		xstream.alias("result", Result.class);
-		xstream.omitField(Result.class, "expected_release_quarter");
-		xstream.omitField(Result.class, "expected_release_year");
-		xstream.omitField(Result.class, "date_last_updated");
-		xstream.omitField(Result.class, "api_detail_url");
-		String xml = xstream.toXML(results);
-		return xml;
+	
+	
+	public static String makeCSS(Colours colour){
+		String cssGo="";
+		cssGo += "list{display:table;  border: thin solid black;width: 90%;margin-left: auto;margin-right: auto;background: "+colour.getBackgroundColour()+";}\n";
+		cssGo += "result{display: table-row; background:"+colour.getTableBackground()+"} result:first-of-type{background: "+colour.getFirstLineColour()+";}\n";
+		cssGo += "result:nth-child(even){background-color: "+colour.getEvenColour()+"}";
+		cssGo += "id:hover, name:hover, aliases:hover, deck:hover, numberofuserreviews:hover,siteurl:hover,lastupdate:hover,apiurl:hover, dateadded:hover, "
+				+ "originaldate:hover,releasequarter:hover,releaseyear:hover,deck:hover,platformpc:hover,"
+				+ "platformplaystation:hover,platformarcade:hover,platformxbox:hover,platformpc:hover,platformplaystation:hover,"
+				+ "platformarcade:hover,platformxbox:hover {background-color: "+colour.getHoverColour()+";}\n";
+		cssGo += "id:active, name:active, aliases:active, deck:active, numberofuserreviews:active,siteurl:active,lastupdate:active,apiurl:active, "
+				+ "dateadded:active, originaldate:active,releasequarter:active,releaseyear:active,deck:active,platformpc:active,"
+				+ "platformplaystation:active,platformarcade:active,platformxbox:active,platformpc:active,platformplaystation:active,"
+				+ "platformarcade:active,platformxbox:active { background-color: "+colour.getActiveColour()+";}\n";
+		cssGo += "id, name, aliases, deck, numberofuserreviews,siteurl,lastupdate,apiurl, dateadded, originaldate,releasequarter,releaseyear,deck,platformpc,"
+				+ "platformplaystation,platformarcade,platformxbox,platformpc,platformplaystation,platformarcade,"
+				+ "platformxbox{display: table-cell;border: thin solid black;font-weight: bold;font-size: "+colour.getFontSize()+"%;color: "+colour.getTextColour()+"; outline: 1px dashed "+colour.getOutlineColour()
+				+"; font-style:"+colour.getFontStyle()+";}\n";
+		return cssGo;
 	}
+	
 
 	public static int boolTo01(boolean value){
 		if(value)

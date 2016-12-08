@@ -9,10 +9,10 @@ public class Result {
 	
 	private Long id;
 	private String name;
-    private String aliases;
+    private String aliases = "No aliases";
     private int number_of_user_reviews;
     
-    private String deck;
+    private String deck = "No deck";
     private String description; 
     private String original_release_date;
     private String site_detail_url;
@@ -26,10 +26,10 @@ public class Result {
     
     private List<Platforms> platforms;
     
-    private int platform_pc;
-    private int platform_playstation;
-    private int platform_arcade;
-    private int platform_xbox;
+    private String platform_pc;
+    private String platform_playstation;
+    private String platform_arcade;
+    private String platform_xbox;
 	
 	public String getName() {
 		return name;
@@ -52,7 +52,12 @@ public class Result {
 	}
 
 	public void setAliases(String aliases) {
-		this.aliases = aliases;
+		if(aliases == null){
+			this.aliases = "No aliases";
+		}else{
+			this.aliases = aliases;
+		}
+		
 	}
 
 	public int getNumber_of_user_reviews() {
@@ -60,7 +65,12 @@ public class Result {
 	}
 
 	public void setNumber_of_user_reviews(int number_of_user_reviews) {
-		this.number_of_user_reviews = number_of_user_reviews;
+		if(number_of_user_reviews<0){
+			this.number_of_user_reviews = 0;
+		}else{
+			this.number_of_user_reviews = number_of_user_reviews;
+		}
+		
 	}
 
 	public String getDeck() {
@@ -68,7 +78,11 @@ public class Result {
 	}
 
 	public void setDeck(String deck) {
-		this.deck = deck;
+		if(deck == null){
+			this.deck = "No deck";
+		}else{
+			this.deck = deck;
+		}
 	}
 
 	public String getDescription() {
@@ -76,7 +90,11 @@ public class Result {
 	}
 
 	public void setDescription(String description) {
-		this.description = description;
+		if(description == null){
+			this.description = "No descriptions";
+		}else{
+			this.description = description;
+		}
 	}
 
 	
@@ -86,7 +104,12 @@ public class Result {
 	}
 
 	public void setOriginal_release_date(String original_release_date) {
-		this.original_release_date = original_release_date;
+		if(original_release_date == null){
+			this.original_release_date = "No date";
+		}else{
+			this.original_release_date = original_release_date;
+		}
+		
 	}
 
 	public String getSite_detail_url() {
@@ -150,56 +173,56 @@ public class Result {
 	
 	
 
-	public int getPlatform_pc() {
+	public String getPlatform_pc() {
 		return platform_pc;
 	}
 
-	public void setPlatform_pc(int platform_pc) {
+	public void setPlatform_pc(String platform_pc) {
 		this.platform_pc = platform_pc;
 	}
 
-	public int getPlatform_playstation() {
+	public String getPlatform_playstation() {
 		return platform_playstation;
 	}
 
-	public void setPlatform_playstation(int platform_playstation) {
+	public void setPlatform_playstation(String platform_playstation) {
 		this.platform_playstation = platform_playstation;
 	}
 
-	public int getPlatform_arcade() {
+	public String getPlatform_arcade() {
 		return platform_arcade;
 	}
 
-	public void setPlatform_arcade(int platform_arcade) {
+	public void setPlatform_arcade(String platform_arcade) {
 		this.platform_arcade = platform_arcade;
 	}
 
-	public int getPlatform_xbox() {
+	public String getPlatform_xbox() {
 		return platform_xbox;
 	}
 
-	public void setPlatform_xbox(int platform_xbox) {
+	public void setPlatform_xbox(String platform_xbox) {
 		this.platform_xbox = platform_xbox;
 	}
 
 	public void fillNulls(){
 		String _platforms = platforms+"";
 		if(_platforms.toLowerCase().contains("pc"))
-			platform_pc = 1;  
+			platform_pc = "V";  
 			else 
-				platform_pc = 0;
+				platform_pc = "X"; 
 		if(_platforms.toLowerCase().contains("playstation"))
-			platform_playstation = 1;  
+			platform_playstation = "V";  
 			else 
-				platform_playstation = 0;
+				platform_playstation = "X"; 
 		if(_platforms.toLowerCase().contains("xbox"))
-			platform_xbox = 1;  
+			platform_xbox = "V";   
 			else 
-				platform_xbox = 0;
+				platform_xbox = "X"; 
 		if(_platforms.toLowerCase().contains("arcade"))
-			platform_arcade = 1;  
+			platform_arcade = "V";   
 			else 
-				platform_arcade = 0;
+				platform_arcade = "X"; 
 	}
 
 	@Override

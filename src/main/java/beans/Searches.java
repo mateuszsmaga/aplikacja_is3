@@ -7,6 +7,7 @@ public class Searches {
 		return search;
 	}
 
+	
 	public void setSearch(String search) {
 		this.search = search.replaceAll("/\\*.*\\*/", "");;
 	}

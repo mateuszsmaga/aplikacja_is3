@@ -12,6 +12,7 @@
     	<nav class="navbar navbar-light bg-faded">
 		  <a class="navbar-brand" href="#">Pobieranie danych</a>
 		  <form class="form-inline float-xs-right" th:action="@{/logout}" method="post">
+		    <a href="styles" class="btn btn-outline-success" role="button">Pobierz style</a>
 		    <button class="btn btn-outline-success" type="submit">Wyloguj się</button>
 		  </form>
 		</nav>

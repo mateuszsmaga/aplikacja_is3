@@ -24,11 +24,11 @@ public class ResultsMapper implements RowMapper<Result> {
 		
 		results.setDeck(rs.getString("deck"));
 		results.setExpected_release_year(rs.getInt("expected_release_year"));
-		results.setPlatform_arcade(rs.getInt("platform_arcade"));
+		results.setPlatform_arcade(rs.getString("platform_arcade"));
 		
-		results.setPlatform_pc(rs.getInt("platform_pc"));
-		results.setPlatform_playstation(rs.getInt("platform_playstation"));
-		results.setPlatform_xbox(rs.getInt("platform_xbox"));
+		results.setPlatform_pc(rs.getString("platform_pc"));
+		results.setPlatform_playstation(rs.getString("platform_playstation"));
+		results.setPlatform_xbox(rs.getString("platform_xbox"));
 		
 		return results;
 	}
